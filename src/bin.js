@@ -1,11 +1,12 @@
+/* eslint-disable no-console */
 import minimist from 'minimist';
 import client from './client';
 
 function get(obj, props) {
   let r = obj;
-  for (let i = 0; i < props.length; i++) {
+  for (let i = 0; i < props.length; i += 1) {
     r = r[props[i]];
-    if (!r) throw new Error(`Method ${props.join('.')} does not exist`)
+    if (!r) throw new Error(`Method ${props.join('.')} does not exist`);
   }
   return r;
 }

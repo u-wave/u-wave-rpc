@@ -7,7 +7,11 @@ import znode from 'znode';
 
 const debug = createDebug('uwave:rpc');
 
+const ROOT = 'uw';
 const methods = {
+  [ROOT]: [
+    'publish',
+  ],
   acl: [
     'getAllRoles',
     'createRole',
@@ -47,7 +51,7 @@ export default function rpc(opts = {}) {
   return (uw) => {
     const local = {};
     Object.keys(methods).forEach((section) => {
-      local[section] = makeMethods(uw[section], methods[section]);
+      local[section] = makeMethods(section === ROOT ? uw : uw[section], methods[section]);
     });
     uw.rpc = flatten(local); // eslint-disable-line no-param-reassign
 
